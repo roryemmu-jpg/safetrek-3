@@ -1,4 +1,4 @@
-```json
+
 {
   "rewrites": [
     {
@@ -13,7 +13,3 @@
     }
   ]
 }
-```
-
-- The `"rewrites"` section ensures that all requests to your website's URL (e.g., `your-site.vercel.app/` or `your-site.vercel.app/any-path`) are directed to your `index.html` file.
-- The `"builds"` section is the most important part here. It explicitly tells Vercel to use the `@vercel/static-build` builder for your `index.html` file. This prevents Vercel from trying to run any Python or other build processes.
