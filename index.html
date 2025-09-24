@@ -1,0 +1,1134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Safe Trek&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;libraries=geometry&amp;callback=initMap" async defer&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* All CSS from style.css goes here */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@tailwind base;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@tailwind components;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@tailwind utilities;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: "Inter", sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #e0e7ff 0%, #bbf7d0 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #1a202c;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow-x: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.animated-bg {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100vw; height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: -10;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: 0; top: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(120deg, #a5b4fc, #81e6d9, #c7d2fe, #f9fafb);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-size: 200% 200%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: gradientShift 25s ease-in-out infinite;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>filter: blur(3px) brightness(1.12);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes gradientShift {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>0%,100% { background-position: left; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>50% { background-position: right; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.glass-card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.47);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(18px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 32px 0 rgba(30, 64, 175, 0.11);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(255,255,255,0.16);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.3s, box-shadow 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.glass-card:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-6px) scale(1.025);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 18px 44px 0 rgba(30, 64, 175, 0.17);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.main-panel, .tab-panel, .modal-content {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: slideLeftFade 0.5s cubic-bezier(0.4,0,0.2,1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes slideLeftFade {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>from { opacity: 0; transform: translateX(40px);}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>to { opacity: 1; transform: translateX(0);}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.glossy-btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(90deg, #7f53ac 0%, #647dee 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 999px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 28px rgba(76, 29, 149, 0.26);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all .23s cubic-bezier(.24,1.16,.94,.9);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.glossy-btn::before {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>content: "";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: -50%; top: -50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 200%; height: 200%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: radial-gradient(circle at 70% 30%,rgba(255,255,255,0.16) 0%,transparent 80%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.14;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: opacity .25s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.glossy-btn:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(1.04) translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 8px 36px rgba(109, 40, 217, 0.19);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.glossy-btn:active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>filter: brightness(0.93);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-content {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(.97);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all .35s cubic-bezier(.19,1,.22,1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal[style*="display: flex"] .modal-content {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.rain-effect {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 0; left: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.rain-effect::after {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 0; left: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-image: url('data:image/svg+xml;utf8,&lt;svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"&gt;&lt;line x1="0" y1="0" x2="100" y2="100" stroke="rgba(173,216,230,0.8)" stroke-width="2"/&gt;&lt;/svg&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-size: 10px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: rain 0.6s linear infinite;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes rain {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>from { background-position: 0% 0%; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>to { background-position: 100% 100%; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.clouds-effect {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 0; left: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.clouds-effect::before {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 300px; height: 100px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.7);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>filter: blur(20px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: moveClouds 20s infinite linear;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 10%; left: -20%;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.clouds-effect::after {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 400px; height: 120px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.6);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>filter: blur(25px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: moveClouds 25s infinite linear reverse;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 30%; left: -30%;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes moveClouds {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>0% { transform: translateX(0); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>100% { transform: translateX(120vw); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.pulse { animation: pulse 1.1s infinite; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes pulse {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>0%,100%{opacity:.9;} 60%{opacity:.12;}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.heartbeat-monitor {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(145deg, #e0e7ff, #c3dafe);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 8px 24px rgba(0,0,0,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.heartbeat-icon {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 4rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #ef4444; /* red-500 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: beat 1.2s infinite;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes beat {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>0%, 100% { transform: scale(1); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>15% { transform: scale(1.2); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>30% { transform: scale(1); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>45% { transform: scale(1.2); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>60% { transform: scale(1); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.heartbeat-line {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stroke: #ef4444;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stroke-width: 3;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>fill: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: drawHeartbeat 1.5s linear infinite;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(-100%);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes drawHeartbeat {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>0% {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>stroke-dasharray: 0, 500;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>stroke-dashoffset: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>50% {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>stroke-dasharray: 500, 500;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>stroke-dashoffset: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>100% {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>stroke-dasharray: 500, 500;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>stroke-dashoffset: -500;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="flex flex-col items-center bg-gradient-to-br from-blue-50 to-green-100 min-h-screen"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="animated-bg"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="w-full bg-white/80 shadow-lg p-7 sticky top-0 z-50 backdrop-blur-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="container mx-auto flex flex-col md:flex-row justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-3xl md:text-5xl font-bold text-gradient bg-gradient-to-tr from-indigo-700 via-fuchsia-600 to-teal-600 bg-clip-text text-transparent mb-4 md:mb-0 tracking-tight"&gt;Safe Trek&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;nav class="w-full md:w-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul id="main-nav" class="flex justify-center md:justify-end gap-7 overflow-x-auto whitespace-nowrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;button data-target="home-panel" class="tab-button px-3 py-1 text-indigo-600 font-semibold rounded-full transition-all duration-300 active:bg-indigo-200" onclick="handleMainTabClick(event)"&gt;Home&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;button data-target="dashboard-main-panel" class="tab-button px-3 py-1 text-gray-600 font-semibold rounded-full transition-all duration-300" onclick="handleMainTabClick(event)"&gt;Dashboard&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/nav&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;main class="w-full max-w-7xl p-8 flex flex-col items-center space-y-8 z-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="home-panel" class="main-panel active w-full transition-all duration-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="glass-card p-8 md:p-14 space-y-8 text-center shadow-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-5xl md:text-6xl font-extrabold text-indigo-800 leading-tight mb-4"&gt;Welcome, User!&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="relative overflow-hidden rounded-2xl shadow-2xl mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MnwzNTg3NTd8MHwxfHNlYXJjaHw3fHx0cmVra2luZ3xlbnwwfHx8fDE2OTU1NzAwMDF8MA&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=1080" alt="A scenic view of a beautiful landscape" class="w-full h-96 object-cover rounded-2xl transform hover:scale-105 transition-transform duration-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="absolute inset-0 bg-indigo-900 opacity-20"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="glass-card p-6 text-left"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-2xl font-semibold mb-4 text-indigo-700"&gt;Secure Your Trip&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-600 mb-4"&gt;Log in to access all safety features and personalize your experience.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="showLoginModal()" class="glossy-btn w-full px-8 py-4 text-lg shadow-lg"&gt;Login / Sign Up&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="glass-card p-6 text-left relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="absolute top-0 right-0 h-3 w-3 bg-red-500 rounded-full pulse"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-2xl font-semibold mb-4 text-red-600"&gt;Immediate Help&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-600 mb-4"&gt;In case of an emergency, press the SOS button to alert local authorities and your contacts.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="sendSOS()" class="glossy-btn w-full px-8 py-4 bg-gradient-to-tr from-red-500 via-pink-400 to-yellow-500 text-lg shadow-lg"&gt;SOS Emergency Alert&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-6 text-left md:col-span-2 bg-emerald-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-semibold mb-4 text-emerald-800"&gt;Trekking Essentials&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;ul class="list-disc list-inside grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="p-2 rounded-xl hover:bg-emerald-100 transition"&gt;Water Bottle (reusable)&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="p-2 rounded-xl hover:bg-emerald-100 transition"&gt;Snacks (energy bars, fruits)&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="p-2 rounded-xl hover:bg-emerald-100 transition"&gt;First-Aid Kit&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="p-2 rounded-xl hover:bg-emerald-100 transition"&gt;Map, Compass, or GPS&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="p-2 rounded-xl hover:bg-emerald-100 transition"&gt;Light Jacket / Rain Gear&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="p-2 rounded-xl hover:bg-emerald-100 transition"&gt;Power Bank&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="p-2 rounded-xl hover:bg-emerald-100 transition"&gt;Sunscreen &amp; Hat&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="p-2 rounded-xl hover:bg-emerald-100 transition"&gt;Whistle for Signaling&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="p-2 rounded-xl hover:bg-emerald-100 transition"&gt;Headlamp/Flashlight&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="dashboard-main-panel" class="main-panel hidden w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;header class="w-full p-6 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;nav&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;ul id="sub-nav" class="flex justify-center md:justify-end gap-4 sm:gap-8 overflow-x-auto whitespace-nowrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;button data-panel="panel-1" class="tab-button active px-2 py-1 text-gray-600" onclick="handleSubTabClick(event)"&gt;SOS&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;button data-panel="panel-2" class="tab-button px-2 py-1 text-gray-600" onclick="handleSubTabClick(event)"&gt;Vehicles&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;button data-panel="panel-3" class="tab-button px-2 py-1 text-gray-600" onclick="handleSubTabClick(event)"&gt;Weather&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;button data-panel="panel-4" class="tab-button px-2 py-1 text-gray-600" onclick="handleSubTabClick(event)"&gt;E-FIR&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;button data-panel="panel-5" class="tab-button px-2 py-1 text-gray-600" onclick="handleSubTabClick(event)"&gt;First Aid&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;button data-panel="panel-6" class="tab-button px-2 py-1 text-gray-600" onclick="handleSubTabClick(event)"&gt;Maps&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;button data-panel="panel-7" class="tab-button px-2 py-1 text-gray-600" onclick="handleSubTabClick(event)"&gt;Heartbeat&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;button data-panel="panel-8" class="tab-button px-2 py-1 text-gray-600" onclick="handleSubTabClick(event)"&gt;Hotels &amp; Food&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;button data-panel="panel-9" class="tab-button px-2 py-1 text-gray-600 flex items-center gap-1" onclick="handleSubTabClick(event)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-5 h-5 tab-icon-animation text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10a3 3 0 11-6 0 3 3 0 016 0zM12 21a9 9 0 100-18 9 9 0 000 18zM8.293 11.293a1 1 0 011.414 0L12 13.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" /&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>Flora &amp; Fauna</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/nav&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/header&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="panel-1" class="tab-panel active w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-8 md:p-12 space-y-8 mt-8 shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-semibold mb-4"&gt;SOS &amp; Emergency Services&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="grid grid-cols-1 sm:grid-cols-2 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="sendSOS()" class="glossy-btn w-full px-8 py-4 bg-gradient-to-tr from-red-500 via-pink-500 to-orange-400 text-lg shadow-lg"&gt;SOS Emergency Alert&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a id="call-emergency" href="tel:100" class="glossy-btn w-full px-8 py-4 bg-gradient-to-tr from-green-400 to-emerald-600 text-lg shadow-lg"&gt;Dial Police Station (100)&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="text-xl font-semibold mb-4"&gt;My Emergency Contacts&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;form id="add-contact-form" class="flex flex-col md:flex-row gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input type="text" id="contact-name" placeholder="Name" class="flex-1 p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input type="tel" id="contact-number" placeholder="Phone Number" class="flex-1 p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button type="submit" class="glossy-btn w-full md:w-auto px-8 py-3"&gt;Add Contact&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div id="contacts-list" class="mt-4 space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="text-gray-500 text-sm"&gt;No contacts added yet.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="panel-2" class="tab-panel hidden w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-8 md:p-12 space-y-8 mt-8 shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-semibold mb-4"&gt;Vehicle Breakdown &amp; Fuel Coverage&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex flex-col items-center gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;img src="https://placehold.co/150x100/f87171/ffffff?text=Car+Breakdown" alt="Car breakdown image" class="rounded-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center gap-2 text-red-500 font-semibold"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4.022a1.5 1.5 0 01-1.34-2.122l4.004-8.008a1.5 1.5 0 012.68 0l4.004 8.008a1.5 1.5 0 01-1.34 2.122H5.062z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-lg"&gt;Low Fuel&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600"&gt;Get assistance for vehicle breakdowns or emergency fuel delivery at your current location.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="grid grid-cols-1 sm:grid-cols-2 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="findMechanic()" class="glossy-btn px-8 py-4 bg-gradient-to-tr from-orange-400 to-orange-600 text-lg shadow-lg"&gt;Find Nearest Mechanic&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="requestFuel()" class="glossy-btn px-8 py-4 bg-gradient-to-tr from-yellow-400 to-yellow-500 text-lg shadow-lg"&gt;Request Fuel Delivery&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="vehicle-results" class="mt-4 space-y-4"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="panel-3" class="tab-panel hidden w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-8 md:p-12 space-y-8 mt-8 relative overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="weather-effects-container" class="absolute inset-0"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-semibold mb-4 z-10 relative"&gt;Weather Report&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="weather-report" class="space-y-4 z-10 relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-500"&gt;Fetching weather data...&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="panel-4" class="tab-panel hidden w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-8 md:p-12 space-y-8 mt-8 shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-semibold mb-4 flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Automated E-FIR (Missing Person)</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;svg class="h-6 w-6 text-red-500 pulse" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.34 3.375 2.094 3.375h14.185c1.754 0 2.96-1.875 2.094-3.375l-7.09-12.443a1.125 1.125 0 0 0-1.988 0l-7.09 12.443Z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600"&gt;File a digital First Information Report for a missing person. Your report will be instantly sent to the police authorities.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;form id="e-fir-form" class="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="p-4 bg-gray-50 rounded-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label for="missing-photo" class="block text-sm font-medium text-gray-700 mb-2"&gt;Photo for Identification&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input type="file" id="missing-photo" accept="image/*" class="w-full text-sm text-gray-500" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label for="missing-name" class="block text-sm font-medium text-gray-700"&gt;Name of Missing Person&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input type="text" id="missing-name" required class="mt-1 block w-full p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label for="missing-age" class="block text-sm font-medium text-gray-700"&gt;Age&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input type="number" id="missing-age" required class="mt-1 block w-full p-3 border border-gray-300 rounded-xl" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label for="missing-description" class="block text-sm font-medium text-gray-700"&gt;Description&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;textarea id="missing-description" rows="4" required class="mt-1 block w-full p-3 border border-gray-300 rounded-xl"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button type="submit" class="glossy-btn w-full px-8 py-4 bg-gradient-to-tr from-indigo-600 to-indigo-800 text-lg shadow-lg"&gt;Submit E-FIR&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="panel-5" class="tab-panel hidden w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-8 md:p-12 space-y-8 mt-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-semibold mb-4"&gt;First Aid &amp; Medical Assistance&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="prose max-w-none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-center mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="h-24 w-24 text-red-600 ambulance-animate" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-600"&gt;In case of an injury, follow these basic first-aid steps while you wait for professional help.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="mt-6 p-4 rounded-xl bg-gray-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="font-bold text-lg mb-2"&gt;Cuts and Scrapes&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;ul class="list-disc list-inside text-sm text-gray-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;Clean the wound with clean water.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;Apply gentle pressure with a clean cloth to stop bleeding.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;Apply a bandage.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="mt-4 p-4 rounded-xl bg-gray-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="font-bold text-lg mb-2"&gt;Burns&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;ul class="list-disc list-inside text-sm text-gray-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;Cool the burn under cool, running water for several minutes.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;Do not apply ice or butter.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;Cover the burn with a sterile bandage.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="mt-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="text-xl font-semibold mb-4"&gt;Find Local Hospitals&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;a href="https://www.google.com/maps/search/hospitals" target="_blank" class="glossy-btn w-full inline-block text-center px-8 py-4 bg-gradient-to-tr from-purple-600 to-pink-400 text-lg shadow-lg"&gt;Find Nearest Hospitals&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="panel-6" class="tab-panel hidden w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-8 md:p-12 space-y-8 mt-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-2xl font-semibold mb-4"&gt;Your Location&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="map-container mb-4 rounded-2xl overflow-hidden shadow-xl "&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;iframe id="google-map" src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&amp;q=current+location" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"&gt;&lt;/iframe&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex flex-col sm:flex-row gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onclick="getLocation()" class="glossy-btn flex-1 px-8 py-4 bg-gradient-to-tr from-gray-600 to-gray-900 text-lg shadow-lg"&gt;Get My Accurate Location&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onclick="handleOfflineMap()" class="glossy-btn flex-1 px-8 py-4 bg-gradient-to-tr from-gray-700 to-gray-900 text-lg shadow-lg"&gt;Download Offline Map&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div id="location-status" class="mt-4 p-4 rounded-xl hidden text-center"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="suggested-places" class="mt-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="text-xl font-semibold mb-4"&gt;Suggested Places Near You&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;ul id="places-list" class="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="text-gray-500"&gt;Click "Get My Accurate Location" to see suggestions.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="panel-7" class="tab-panel hidden w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-8 md:p-12 space-y-8 mt-8 heartbeat-monitor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-3xl font-bold text-indigo-800 mb-6"&gt;Heartbeat Monitor&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex flex-col items-center justify-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;svg class="w-48 h-auto" viewBox="0 0 300 150" preserveAspectRatio="none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;polyline class="heartbeat-line" points="0,75 50,75 70,25 90,125 110,75 160,75 180,25 200,125 220,75 300,75" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center gap-4 mt-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="heartbeat-icon"&gt;❤️&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="text-5xl font-extrabold text-red-600" id="heart-rate-display"&gt;---&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="text-2xl text-gray-700"&gt;bpm&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-lg text-gray-600 mt-4" id="heart-rate-status"&gt;Connect your smartwatch to monitor your heart rate.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="connectSmartwatch()" class="glossy-btn mt-8 px-8 py-4 bg-gradient-to-tr from-pink-500 to-red-600 text-lg shadow-lg"&gt;Connect Smartwatch&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="disconnectSmartwatch()" class="glossy-btn mt-4 px-8 py-4 bg-gradient-to-tr from-gray-500 to-gray-700 text-lg shadow-lg"&gt;Disconnect&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="panel-8" class="tab-panel hidden w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-8 md:p-12 space-y-8 mt-8 shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-semibold mb-4"&gt;Nearby Hotels &amp; Food&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600 mb-6"&gt;Find the best places to stay and eat around your current location.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="glass-card p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="text-xl font-semibold text-blue-700 mb-3"&gt;Hotels Near You&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onclick="findNearbyHotels()" class="glossy-btn w-full px-6 py-3 bg-gradient-to-tr from-blue-500 to-indigo-600 text-md shadow-md mb-4"&gt;Search Hotels&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div id="hotels-results" class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-gray-500 text-sm"&gt;Click "Search Hotels" to find nearby accommodations.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="glass-card p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="text-xl font-semibold text-green-700 mb-3"&gt;Food &amp; Restaurants Near You&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onclick="findNearbyFood()" class="glossy-btn w-full px-6 py-3 bg-gradient-to-tr from-green-500 to-emerald-600 text-md shadow-md mb-4"&gt;Search Food Places&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div id="food-results" class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-gray-500 text-sm"&gt;Click "Search Food Places" to find nearby restaurants.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="panel-9" class="tab-panel hidden w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-card p-8 md:p-12 space-y-8 mt-8 shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-semibold mb-4"&gt;Flora &amp; Fauna Identification&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600 mb-4"&gt;Use your camera to identify plants and animals around you. This feature can help you learn about the local ecosystem and identify potentially dangerous species.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="relative w-full overflow-hidden rounded-xl shadow-inner border border-gray-300 bg-gray-100 flex items-center justify-center" style="height: 400px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;video id="camera-feed" class="w-full h-full object-cover" autoplay playsinline&gt;&lt;/video&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;canvas id="photo-canvas" class="hidden"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div id="camera-placeholder" class="text-gray-500 text-center p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;Loading camera preview...&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;img id="captured-photo" class="hidden absolute top-0 left-0 w-full h-full object-contain bg-black/50 backdrop-blur-sm" alt="Captured image for analysis"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="loading-spinner" class="hidden text-center text-gray-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;svg class="animate-spin h-8 w-8 text-indigo-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"&gt;&lt;/circle&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"&gt;&lt;/path&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="mt-2 text-sm"&gt;Analyzing image...&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="takePhotoAndIdentify()" id="identify-btn" class="glossy-btn w-full px-8 py-4 bg-gradient-to-tr from-emerald-500 to-blue-500 text-lg shadow-lg"&gt;Take Photo &amp; Identify&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="identification-results" class="mt-4 space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-500 text-sm text-center"&gt;Your identification results will appear here.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/main&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="message-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" style="display:none;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-content glass-card max-w-md mx-auto p-8 text-center shadow-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 id="modal-title" class="text-2xl font-bold mb-4"&gt;&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="modal-text" class="mb-6"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="hideModal()" class="glossy-btn px-8 py-3"&gt;OK&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="login-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" style="display:none;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-content glass-card max-w-md mx-auto p-8 text-center shadow-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-2xl font-bold mb-4"&gt;Login / Sign Up&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="mb-6 text-gray-700"&gt;Choose your preferred method to access Safe Trek's features.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="loginWithGoogle()" class="glossy-btn w-full flex items-center justify-center gap-3 px-8 py-3 bg-gradient-to-tr from-blue-500 to-red-500 text-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"&gt;&lt;path d="M12.24 10.29v2.17h6.39c-.27 1.6-1.55 3.19-3.78 3.19-2.28 0-4.13-1.85-4.13-4.13s1.85-4.13 4.13-4.13c1.24 0 2.37.52 3.16 1.34l1.79-1.79c-1.16-1.12-2.73-1.86-4.95-1.86-4.23 0-7.66 3.43-7.66 7.66s3.43 7.66 7.66 7.66c4.08 0 7.37-2.92 7.37-7.41 0-.5-.05-.98-.14-1.45H12.24zm-6.2 0H3.5v2.17h2.54z" fill="white"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span&gt;Login with Google&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="loginWithPhoneNumber()" class="glossy-btn w-full flex items-center justify-center gap-3 px-8 py-3 bg-gradient-to-tr from-green-500 to-blue-500 text-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"&gt;&lt;path d="M16 2.01L15.99 2h-7.98C6.89 2 6 2.89 6 3.99v16.02c0 1.1.89 1.99 1.99 1.99h7.98c1.1 0 1.99-.89 1.99-1.99V3.99C18 2.89 17.11 2 16 2.01zM16 20H8V4h8v16zM9 19h6v-1H9v1zM11.5 5h1c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5s.22.5.5.5z" fill="white"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span&gt;Login with Phone Number&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="hideLoginModal()" class="mt-6 text-gray-600 hover:text-gray-800 transition-colors"&gt;Close&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="recaptcha-container"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="module"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>import { getAuth, signInAnonymously, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>import { getFirestore, doc, addDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let db, auth, userId;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let currentDevice;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let heartRateCharacteristic;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let recaptchaVerifier;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let heartbeatSimInterval;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const firebaseConfig = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>apiKey: "AIzaSyBGeDkhHTUAa_iX1wxReQbTUwpJYPrtYpc",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>authDomain: "cyberbugs2025.firebaseapp.com",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>projectId: "cyberbugs2025",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>storageBucket: "cyberbugs2025.firebasestorage.app",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>messagingSenderId: "354671712852",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>appId: "1:354671712852:web:beb5bdab2c757597732bc1",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const appId = 'cyberbugs2025';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Make functions globally accessible for inline `onclick` events ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.showLoginModal = showLoginModal;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.hideLoginModal = hideLoginModal;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.loginWithGoogle = loginWithGoogle;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.loginWithPhoneNumber = loginWithPhoneNumber;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.sendSOS = sendSOS;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.handleEFIRSubmit = handleEFIRSubmit;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.findMechanic = findMechanic;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.requestFuel = requestFuel;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.getLocation = getLocation;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.handleOfflineMap = handleOfflineMap;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.connectSmartwatch = connectSmartwatch;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.disconnectSmartwatch = disconnectSmartwatch;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.findNearbyHotels = findNearbyHotels;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.findNearbyFood = findNearbyFood;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.showModal = showModal;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.hideModal = hideModal;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.deleteContact = deleteContact;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.takePhotoAndIdentify = takePhotoAndIdentify;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.handleMainTabClick = handleMainTabClick;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.handleSubTabClick = handleSubTabClick;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.onload = async function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const app = initializeApp(firebaseConfig);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>getAnalytics(app);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>db = getFirestore(app);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>auth = getAuth(app);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>onAuthStateChanged(auth, async (user) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (user) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>userId = user.uid;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>console.log("User logged in:", userId);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>listenForContacts();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>await signInAnonymously(auth);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>console.error("Auth Error:", error);</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>showModal("Authentication Error", "Could not sign in. Please try again later.");</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>'size': 'invisible',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>'callback': (response) =&gt; {},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>'expired-callback': () =&gt; { showModal("reCAPTCHA Expired", "Please try phone number login again."); }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>recaptchaVerifier.render().then(widgetId =&gt; window.recaptchaWidgetId = widgetId);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (e) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error("Firebase Initialization Error:", e);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Initialization Error", "Failed to initialize the app. Please check the console for details.");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Navigation &amp; UI Logic ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let mediaStream;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function handleSubTabClick(event) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.tab-panel').forEach(panel =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>panel.classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>panel.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const activePanel = document.getElementById(event.target.dataset.panel);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>activePanel.classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>activePanel.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('#sub-nav button').forEach(btn =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.classList.remove('active', 'text-indigo-600', 'active:bg-indigo-200');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.classList.add('text-gray-600', 'hover:bg-indigo-100');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.target.classList.add('active', 'text-indigo-600', 'active:bg-indigo-200');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.target.classList.remove('text-gray-600', 'hover:bg-indigo-100');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Stop camera if navigating away from the flora panel</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (event.target.dataset.panel !== 'panel-9' &amp;&amp; mediaStream) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>mediaStream.getTracks().forEach(track =&gt; track.stop());</p>
+<p class="p1"><span class="Apple-converted-space">                </span>mediaStream = null;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Trigger specific functions for each tab</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (event.target.dataset.panel === 'panel-3') getWeatherReport();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (event.target.dataset.panel === 'panel-9') startCamera();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function handleMainTabClick(event) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.main-panel').forEach(panel =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>panel.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>panel.classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const targetPanel = document.getElementById(event.target.dataset.target);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>targetPanel.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>targetPanel.classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('#main-nav button').forEach(btn =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.classList.remove('active', 'text-indigo-600', 'active:bg-indigo-200');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.classList.add('text-gray-600', 'hover:bg-indigo-100');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.target.classList.add('active', 'text-indigo-600', 'active:bg-indigo-200');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.target.classList.remove('text-gray-600', 'hover:bg-indigo-100');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (event.target.dataset.target === 'dashboard-main-panel') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const firstSubTab = document.getElementById('sub-nav').querySelector('[data-panel="panel-1"]');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>handleSubTabClick({ target: firstSubTab });</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function showModal(title, text) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('modal-title').textContent = title;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('modal-text').textContent = text;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('message-modal').style.display = 'flex';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function hideModal() { document.getElementById('message-modal').style.display = 'none'; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function showLoginModal() { document.getElementById('login-modal').style.display = 'flex'; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function hideLoginModal() { document.getElementById('login-modal').style.display = 'none'; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Firebase &amp; CRUD Operations ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function loginWithGoogle() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>await signInWithPopup(auth, new GoogleAuthProvider());</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hideLoginModal();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Login Successful", "You have successfully logged in with Google!");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) { showModal("Login Failed", `Google login failed: ${error.message}`); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function loginWithPhoneNumber() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const phoneNumber = prompt("Please enter your phone number (e.g., +919876543210):");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!phoneNumber) return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const code = prompt("Please enter the verification code sent to your phone:");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (code) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>await confirmationResult.confirm(code);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>hideLoginModal();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>showModal("Login Successful", "You have successfully logged in with your phone number!");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) { showModal("Login Failed", `Phone number login failed: ${error.message}`); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function handleAddContact(event) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!userId) { showModal("Error", "Please log in to add contacts."); return; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const contactName = document.getElementById('contact-name').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const contactNumber = document.getElementById('contact-number').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (contactName.trim() === '' || contactNumber.trim() === '') { showModal("Input Error", "Please enter both a name and a phone number."); return; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>await addDoc(collection(db, `artifacts/${appId}/users/${userId}/contacts`), { name: contactName, number: contactNumber });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('add-contact-form').reset();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (e) { showModal("Database Error", "Failed to add contact. Please try again."); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function deleteContact(docId) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>await deleteDoc(doc(db, `artifacts/${appId}/users/${userId}/contacts/${docId}`));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (e) { showModal("Delete Error", "Failed to delete contact. Please try again."); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function listenForContacts() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!userId) return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onSnapshot(collection(db, `artifacts/${appId}/users/${userId}/contacts`), (snapshot) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const contactsList = document.getElementById('contacts-list');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>contactsList.innerHTML = snapshot.empty ? '&lt;p class="text-gray-500 text-sm"&gt;No contacts added yet.&lt;/p&gt;' : '';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>snapshot.forEach(docItem =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const data = docItem.data();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const contactItem = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>contactItem.className = 'bg-gray-100 p-4 rounded-xl flex justify-between items-center shadow-sm';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>contactItem.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;&lt;p class="font-bold text-gray-800"&gt;${data.name}&lt;/p&gt;&lt;p class="text-sm text-gray-500"&gt;${data.number}&lt;/p&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="deleteContact('${docItem.id}')" class="text-rose-600 hover:text-rose-800 transition-colors"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>contactsList.appendChild(contactItem);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function handleEFIRSubmit(event) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!userId) { showModal("Error", "Please log in to submit a report."); return; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const photoAttached = document.getElementById('missing-photo').files.length &gt; 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!photoAttached) { showModal("Missing Photo", "Please attach a photo for identification."); return; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const report = {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>name: document.getElementById('missing-name').value,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>age: document.getElementById('missing-age').value,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>description: document.getElementById('missing-description').value,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>photoAttached: true,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>timestamp: new Date()</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>await addDoc(collection(db, `artifacts/${appId}/public/data/efir`), report);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("E-FIR Submitted", "Your report has been successfully submitted to the authorities.");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('e-fir-form').reset();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (e) { showModal("Submission Error", "Failed to submit E-FIR. Please try again."); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- General App Functions ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let sosSent = false;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function sendSOS() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (sosSent) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Alert Already Sent", "An SOS alert has already been sent. Please wait for a response.");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (navigator.geolocation) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navigator.geolocation.getCurrentPosition(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>(position) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const { latitude, longitude } = position.coords;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const message = encodeURIComponent(`🚨 SOS: I need help! My location is https://www.google.com/maps?q=${latitude},${longitude}`);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>window.open(`https://wa.me/?text=${message}`, '_blank');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>(error) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const message = encodeURIComponent(`🚨 SOS: I need help! My location could not be determined.`);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>window.open(`https://wa.me/?text=${message}`, '_blank');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>showModal("Location Error", "Could not get your location for the SOS message.");</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const message = encodeURIComponent(`🚨 SOS: I need help! My location could not be determined.`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>window.open(`https://wa.me/?text=${message}`, '_blank');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Error", "Geolocation is not supported by your browser. SOS message sent without location.");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const AudioContext = window.AudioContext || window.webkitAudioContext;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (AudioContext) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const audioCtx = new AudioContext();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const oscillator = audioCtx.createOscillator();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const gainNode = audioCtx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>oscillator.connect(gainNode);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gainNode.connect(audioCtx.destination);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>oscillator.type = 'sine';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gainNode.gain.setValueAtTime(1, audioCtx.currentTime);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>oscillator.start();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>oscillator.stop(audioCtx.currentTime + 0.5);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>showModal("SOS Alert Sent", "Sending an SOS alert to local authorities. A WhatsApp message with your location will open for you to send to your contacts.");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sosSent = true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; { sosSent = false; }, 30000); // Reset after 30 seconds</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function findMechanic() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>showModal("Searching for Mechanics", "Searching for the nearest mechanics and towing services near your location. This may take a moment.");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (navigator.geolocation) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navigator.geolocation.getCurrentPosition(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>(position) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const { latitude, longitude } = position.coords;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const searchUrl = `https://www.google.com/maps/search/mechanic/@${latitude},${longitude},15z`;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>window.open(searchUrl, '_blank');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>displayVehicleResults("Mechanics", [{ name: "City Auto Works", distance: "2 km", number: "+919876543210" }]);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}, 2000);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>(error) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>showModal("Location Error", "Could not get your location. Please check your browser settings.");</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Error", "Geolocation is not supported by your browser.");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function requestFuel() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>showModal("Requesting Fuel Delivery", "A fuel delivery service is on its way to your current location. An estimated time of arrival will be sent to your phone shortly.");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (navigator.geolocation) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navigator.geolocation.getCurrentPosition(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>(position) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const { latitude, longitude } = position.coords;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const searchUrl = `https://www.google.com/maps/search/fuel+delivery/@${latitude},${longitude},15z`;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>window.open(searchUrl, '_blank');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>displayVehicleResults("Fuel Delivery", [{ name: "Roadside Fuel Service", eta: "15 mins", number: "+919012345678" }]);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}, 2000);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>(error) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>showModal("Location Error", "Could not get your location. Please check your browser settings.");</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Error", "Geolocation is not supported by your browser.");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function displayVehicleResults(type, results) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const resultsDiv = document.getElementById('vehicle-results');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>resultsDiv.innerHTML = results.length === 0 ? '&lt;p class="text-gray-500 text-sm"&gt;No services found at this time.&lt;/p&gt;' : '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (results.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const title = document.createElement('h4');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>title.className = 'font-bold text-lg text-gray-800 mt-4';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>title.textContent = `Found ${type}:`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>resultsDiv.appendChild(title);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>results.forEach(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const resultItem = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>resultItem.className = 'bg-gray-100 p-4 rounded-xl flex justify-between items-center shadow-sm';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>resultItem.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;&lt;p class="font-bold text-gray-800"&gt;${item.name}&lt;/p&gt;&lt;p class="text-sm text-gray-500"&gt;${item.distance || item.eta}&lt;/p&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="tel:${item.number}" class="text-blue-600 hover:text-blue-800 transition-colors"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.158l-2.002 1.335a1.25 1.25 0 00-.472 1.218l.215 1.074c.154.772-.258 1.574-.95 1.884l-2.002.858a1.25 1.25 0 01-1.047-1.158L3 13.924a1.25 1.25 0 01-1.047-1.158l.182-.912a1 1 0 01.948-.684h1.748l1.498 4.493a1 1 0 01-.502 1.158l-2.002 1.335z"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>resultsDiv.appendChild(resultItem);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getWeatherReport() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const weatherPanel = document.getElementById('weather-report');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const weatherEffectsContainer = document.getElementById('weather-effects-container');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>weatherPanel.innerHTML = '&lt;p class="text-gray-500"&gt;Fetching weather data...&lt;/p&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>weatherEffectsContainer.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const isRainy = Math.random() &lt; 0.5;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const weatherData = isRainy ? {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>location: "Your Location", temperature: "22°C (Feels like 23°C)", condition: "Heavy Rain with High Humidity",</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>trekkingStatus: "Warning: Conditions are not suitable for trekking due to heavy rainfall. Risk of landslides is high. Visibility is poor.",</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>recommendation: "It is strongly recommended to postpone trekking activities until the weather improves."</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} : {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>location: "Your Location", temperature: "25°C (Feels like 28°C)", condition: "Partly Cloudy with High Humidity",</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>trekkingStatus: "Conditions are generally fair for trekking. A chance of light showers in the afternoon. Visibility is good.",</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>recommendation: "Stay hydrated and be prepared for a chance of rain."</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p1"><span class="Apple-converted-space">                </span>weatherPanel.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-blue-100 text-blue-800 p-4 rounded-xl flex items-center justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;&lt;p class="text-xl font-bold"&gt;${weatherData.temperature}&lt;/p&gt;&lt;p class="text-sm"&gt;${weatherData.condition}&lt;/p&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path d="M10 2a8 8 0 100 16 8 8 0 000-16zm-1 12l5-5-1.41-1.41L9 11.17l-1.59-1.58L6 11l3 3z"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-orange-100 text-orange-800 p-4 rounded-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-bold text-lg mb-2"&gt;Trekking Alert&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-sm"&gt;${weatherData.trekkingStatus}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-gray-100 p-4 rounded-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-sm font-semibold"&gt;Recommendation:&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-sm"&gt;${weatherData.recommendation}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (weatherData.condition.includes('Rain')) weatherEffectsContainer.innerHTML = '&lt;div class="rain-effect"&gt;&lt;/div&gt;&lt;div class="clouds-effect"&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, 2000);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getLocation() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const statusDiv = document.getElementById('location-status');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const mapIframe = document.getElementById('google-map');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>statusDiv.className = 'mt-4 p-4 rounded-xl bg-yellow-100 text-yellow-800 text-center';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>statusDiv.textContent = 'Fetching your location...';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (navigator.geolocation) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navigator.geolocation.getCurrentPosition(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>(position) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const { latitude: lat, longitude: lon } = position.coords;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>statusDiv.className = 'mt-4 p-4 rounded-xl bg-emerald-100 text-emerald-800 text-center';</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>statusDiv.textContent = `Your location: Latitude ${lat.toFixed(4)}, Longitude ${lon.toFixed(4)}`;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>mapIframe.src = `https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&amp;center=${lat},${lon}&amp;zoom=15`;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>getSuggestedPlaces({ lat, lon });</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>(error) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const errorMessage = {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>[error.PERMISSION_DENIED]: "Location permission denied. Please enable it in your browser settings.",</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>[error.POSITION_UNAVAILABLE]: "Location information is unavailable.",</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>[error.TIMEOUT]: "The request to get user location timed out."</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}[error.code] || "Unable to retrieve your location.";</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>statusDiv.className = 'mt-4 p-4 rounded-xl bg-red-100 text-red-800 text-center';</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>statusDiv.textContent = errorMessage;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>statusDiv.className = 'mt-4 p-4 rounded-xl bg-red-100 text-red-800 text-center';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>statusDiv.textContent = "Geolocation is not supported by this browser.";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function handleOfflineMap() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>showModal("Feature Concept", "This feature is a concept. A real-world application would require a mobile app and data storage to provide offline map functionality.");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getSuggestedPlaces(userLocation) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const placesList = document.getElementById('places-list');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>placesList.innerHTML = '&lt;li class="text-gray-500"&gt;No popular places found nearby.&lt;/li&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function findNearbyHotels() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const hotelsResults = document.getElementById('hotels-results');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>hotelsResults.innerHTML = '&lt;p class="text-gray-500 text-sm animate-pulse"&gt;Searching for hotels near your location...&lt;/p&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const mockHotels = [{ name: "City Inn", rating: 4.5, distance: "3 km" }];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>displayLocationResults(hotelsResults, mockHotels, "hotels");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, 2000);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function findNearbyFood() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const foodResults = document.getElementById('food-results');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>foodResults.innerHTML = '&lt;p class="text-gray-500 text-sm animate-pulse"&gt;Searching for restaurants near your location...&lt;/p&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const mockFood = [{ name: "The Local Eatery", type: "Indian", distance: "4 km" }];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>displayLocationResults(foodResults, mockFood, "food");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, 2000);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function displayLocationResults(container, results, type) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>container.innerHTML = results.length === 0 ? `&lt;p class="text-gray-500 text-sm"&gt;No ${type} places found nearby.&lt;/p&gt;` : '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.forEach(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const itemDiv = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>itemDiv.className = 'bg-gray-50 p-4 rounded-xl flex justify-between items-center shadow-sm';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>itemDiv.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="font-bold text-gray-800"&gt;${item.name}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-sm text-gray-500"&gt;${item.rating ? `⭐ ${item.rating}` : item.type} • ${item.distance}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="glossy-btn px-4 py-2 text-xs"&gt;View Map&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>container.appendChild(itemDiv);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Web Bluetooth Heartbeat Monitor ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function connectSmartwatch() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const heartRateDisplay = document.getElementById('heart-rate-display');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const heartRateStatus = document.getElementById('heart-rate-status');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!navigator.bluetooth) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Bluetooth Not Supported", "Your browser does not support Web Bluetooth. Please use a compatible browser like Chrome on a desktop or Android device.");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>heartRateStatus.textContent = "Connecting to smartwatch...";</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const device = await navigator.bluetooth.requestDevice({</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>filters: [{ services: ['heart_rate'] }]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentDevice = device;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heartRateStatus.textContent = `Connected to ${device.name}. Getting data...`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const server = await device.gatt.connect();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const service = await server.getPrimaryService('heart_rate');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const characteristic = await service.getCharacteristic('heart_rate_measurement');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heartRateCharacteristic = characteristic;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>await heartRateCharacteristic.startNotifications();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heartRateCharacteristic.addEventListener('characteristicvaluechanged', (event) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const heartRate = parseHeartRate(event.target.value);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>heartRateDisplay.textContent = heartRate;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>heartRateStatus.className = 'mt-6 text-center text-emerald-700 font-semibold';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>heartRateStatus.textContent = "Monitoring active.";</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (heartRate &gt; 90) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>heartRateStatus.className = 'mt-6 text-center text-orange-700 font-semibold';</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>heartRateStatus.textContent = "Heart rate is elevated. Take a break.";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Simulate a data stream</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let currentRate = 72;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>clearInterval(heartbeatSimInterval);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heartbeatSimInterval = setInterval(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const fluctuation = Math.floor(Math.random() * 5) - 2;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>currentRate = Math.max(60, Math.min(100, currentRate + fluctuation));</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const simulatedData = new Uint8Array([0, currentRate]);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>heartRateCharacteristic.dispatchEvent(new CustomEvent('characteristicvaluechanged', { detail: { value: simulatedData } }));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}, 2000);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heartRateStatus.textContent = "Connection failed. Try again.";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error('Bluetooth error:', error);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Connection Failed", `Could not connect to the device. Error: ${error.message}`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function disconnectSmartwatch() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (heartRateCharacteristic) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heartRateCharacteristic.removeEventListener('characteristicvaluechanged', (event) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>console.log("Listener removed.");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heartRateCharacteristic = null;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (currentDevice &amp;&amp; currentDevice.gatt.connected) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentDevice.gatt.disconnect();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (heartbeatSimInterval) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>clearInterval(heartbeatSimInterval);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('heart-rate-display').textContent = '---';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('heart-rate-status').textContent = 'Disconnected. Connect your smartwatch to monitor your heart rate.';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>showModal("Disconnected", "Smartwatch has been disconnected.");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function parseHeartRate(value) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>value = value.buffer ? value : new DataView(value);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const flags = value.getUint8(0);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const rate16Bits = flags &amp; 0x1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let heartRate;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (rate16Bits) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heartRate = value.getUint16(1, true);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>heartRate = value.getUint8(1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return heartRate;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function startCamera() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const video = document.getElementById('camera-feed');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const placeholder = document.getElementById('camera-placeholder');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const capturedPhoto = document.getElementById('captured-photo');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const identifyBtn = document.getElementById('identify-btn');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>video.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>capturedPhoto.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>placeholder.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>identifyBtn.textContent = 'Take Photo &amp; Identify';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('identification-results').innerHTML = '&lt;p class="text-gray-500 text-sm text-center"&gt;Your identification results will appear here.&lt;/p&gt;';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>video.srcObject = mediaStream;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>video.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>placeholder.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (e) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error("Camera access denied:", e);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>placeholder.innerHTML = `&lt;p class="text-red-600"&gt;Camera access denied. Please enable it in your browser settings to use this feature.&lt;/p&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Camera Error", "Could not access the camera. Please ensure permissions are granted.");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function takePhotoAndIdentify() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const video = document.getElementById('camera-feed');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const canvas = document.getElementById('photo-canvas');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const capturedPhoto = document.getElementById('captured-photo');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const resultsDiv = document.getElementById('identification-results');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const loadingSpinner = document.getElementById('loading-spinner');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!mediaStream) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showModal("Camera Not Active", "Please wait for the camera to load or ensure you've granted access.");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Set canvas dimensions to match video feed</p>
+<p class="p1"><span class="Apple-converted-space">            </span>canvas.width = video.videoWidth;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>canvas.height = video.videoHeight;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const context = canvas.getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>context.drawImage(video, 0, 0, canvas.width, canvas.height);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const imageDataURL = canvas.toDataURL('image/jpeg');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const base64Image = imageDataURL.split(',')[1];</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Display captured photo</p>
+<p class="p1"><span class="Apple-converted-space">            </span>capturedPhoto.src = imageDataURL;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>capturedPhoto.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>video.style.display = 'none';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>resultsDiv.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>loadingSpinner.style.display = 'block';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// --- Plant.id API Integration ---</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let retryCount = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const maxRetries = 3;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>async function callApiWithRetry() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const apiKey = "XubaJ5oJYkQdk8mXXd7KgR7oJ1kCKoRVI1SWPAWDuakcRQ0zjQ"; // &lt;-- REPLACE WITH YOUR PLANT.ID API KEY</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const apiUrl = `https://api.plant.id/v2/identify`;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const payload = {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>api_key: apiKey,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>images: [base64Image],</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>modifiers: ["crops_fast", "similar_images"],</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>plant_details: ["common_names", "url", "description"]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>};</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const response = await fetch(apiUrl, {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>method: 'POST',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>headers: {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>'Content-Type': 'application/json'</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>body: JSON.stringify(payload)</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (!response.ok) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (response.status === 429 &amp;&amp; retryCount &lt; maxRetries) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>const delay = Math.pow(2, retryCount) * 1000;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>retryCount++;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>return new Promise(resolve =&gt; setTimeout(() =&gt; resolve(callApiWithRetry()), delay));</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>throw new Error(`API call failed with status: ${response.status}`);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const result = await response.json();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>loadingSpinner.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (result.suggestions &amp;&amp; result.suggestions.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const firstSuggestion = result.suggestions[0];</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const plantName = firstSuggestion.plant_name;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const description = firstSuggestion.plant_details.description.value;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const textResult = `**${plantName}**: ${description}`;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>resultsDiv.innerHTML = `&lt;div class="p-4 bg-gray-100 rounded-xl"&gt;&lt;p class="text-sm text-gray-800"&gt;${textResult}&lt;/p&gt;&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>resultsDiv.innerHTML = '&lt;p class="text-gray-500 text-center"&gt;Could not identify the plant. Please try another photo.&lt;/p&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>loadingSpinner.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>console.error("Identification Error:", error);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>resultsDiv.innerHTML = '&lt;p class="text-red-600 text-center"&gt;An error occurred during identification. Please try again.&lt;/p&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>showModal("Identification Error", `An error occurred: ${error.message}`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>callApiWithRetry();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
